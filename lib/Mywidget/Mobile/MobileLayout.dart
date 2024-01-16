@@ -61,7 +61,7 @@ class _MobileLayoutState extends ConsumerState<MobileLayout>
   var pages = <Widget> [
     Chats(device: 'mobile',),
     status(uid: '',),
-    CallScreen(channelId: '', isGroupChat: true, videoCall: VideoCall(callerId: '', callerName: '', callerPic: '', receiverId: '', receiverName: '', receiverPic: '', callId: '', hasDialled: true))
+    // CallScreen(channelId: '', isGroupChat: true, videoCall: VideoCall(callerId: '', callerName: '', callerPic: '', receiverId: '', receiverName: '', receiverPic: '', callId: '', hasDialled: true))
   ];
 
   @override
