@@ -56,7 +56,7 @@ class _BottommodalState extends ConsumerState<Bottommodal> {
           message: textarea.text.trim(),
           isGroup: widget.isGroup,
           reciveruid: widget.uid.toString());
-    textarea.text = '';
+          textarea.text = '';
       //   }
       //
       // void sendTextmessage(BuildContext context)async {

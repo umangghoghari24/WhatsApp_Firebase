@@ -178,7 +178,7 @@ class _CreatGroupScreenState extends ConsumerState<CreatGroupScreen> {
                                 children: [
                                   CircleAvatar(
                                     radius: 27,
-                                    backgroundImage: NetworkImage(founduser[index].profilePic??''),
+                                    backgroundImage: NetworkImage(founduser[index].profilePic  ?? ''),
                                     backgroundColor: Colors.blueGrey,
                                   ),
                                   Positioned(

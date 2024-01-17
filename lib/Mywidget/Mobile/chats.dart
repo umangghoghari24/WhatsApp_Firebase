@@ -25,88 +25,84 @@ class _ChatsState extends ConsumerState<Chats> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(
-          children: [
-            StreamBuilder<List<GroupModel>>(
-                stream: ref.read(chatClassControllerProvider).getGroups(),
-                builder: (context, snapshots) {
-                  if (snapshots.connectionState == ConnectionState.waiting) {
-                    return const krmLoader();
-                  }
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: snapshots.data != null ? snapshots.data!.length : 0,
-                      itemBuilder: (context, index) {
-                        GroupModel groupModel = snapshots.data![index];
-                        return InkWell(
-                          onTap: () {
-                            if (widget.device == 'mobile') {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => personalsms(
-                                    uid: groupModel.groupId,
-                                    uname: groupModel.name,
-                                    isGroup: false,
-                                  ),
-                                ),
-                              );
-                            } else {
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => WebLayout(
-                              //       friends: groupModel.groupId,
-                              //
-                              //     ),
-                              //   ),
-                              // );
-                            }
-                          },
-                          child: Column(
-                            children: [
-                              ListTile(
-                                leading: CircleAvatar(
-                                  radius: 30,
-                                  backgroundImage: NetworkImage(
-                                    groupModel.groupPic,
-                                  ),
-                                ),
-                                title: Text(
-                                  groupModel.name,
-                                  style: const TextStyle(fontSize: 18),
-                                ),
-                                subtitle: Padding(
-                                  padding: const EdgeInsets.only(top: 5.0),
-                                  child: Text(
-                                    groupModel.lastMessage,
-                                    style: const TextStyle(fontSize: 15),
-                                  ),
-                                ),
-                                trailing: Padding(
-                                  padding: const EdgeInsets.only(bottom: 8.0),
-                                  child: Text(
-                                    DateFormat.Hm().format(groupModel.timeSent),
-                                    style: const TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.grey,
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              StreamBuilder<List<GroupModel>>(
+                  stream: ref.read(chatClassControllerProvider).getGroups(),
+                  builder: (context, snapshots) {
+                    if (snapshots.connectionState == ConnectionState.waiting) {
+                      return const krmLoader();
+                    }
+                    return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: snapshots.data != null ? snapshots.data!.length : 0,
+                        itemBuilder: (context, index) {
+                          GroupModel groupModel = snapshots.data![index];
+
+                          var timeSent = DateFormat.Hm().format(groupModel.timeSent);
+
+                          return InkWell(
+                            onTap: () {
+                              if (widget.device == 'mobile') {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => personalsms(
+                                      uid: groupModel.groupId,
+                                      uname: groupModel.name,
+                                      groupPic: groupModel.groupPic,
+                                      members: groupModel.members.toString(),
+                                      isGroup: true,
+                                      // members_name: groupModel.members_name.toString(),
                                     ),
                                   ),
+                                );
+                              } else {
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) => WebLayout(
+                                //       friends: groupModel.groupId,
+                                //
+                                //     ),
+                                //   ),
+                                // );
+                              }
+                            },
+                            child: Column(
+                              children: [
+                                ListTile(
+                                  leading: CircleAvatar(
+                                    radius: 30,
+                                    backgroundImage: NetworkImage(
+                                      groupModel.groupPic,
+                                    ),
+                                  ),
+                                  title: Text(groupModel.name.toString(),
+                                    // style: const TextStyle(fontSize: 18),
+                                  ),
+                                  subtitle: Text(groupModel.lastMessage.toString() ?? '' ,
+                                    // style: const TextStyle(fontSize: 15),
+                                  ),
+                                  trailing: Text(timeSent.toString() ?? '',
+                                    // style: const TextStyle(
+                                    //   fontSize: 15,
+                                    //   color: Colors.grey,
+                                    // ),
+                                  ),
                                 ),
-                              ),
-                              // const Divider(
-                              //   color: Colors.black,
-                              //   // indent: 5,
-                              // )
-                            ],
-                          ),
-                        );
-                      });
-                }),
+                                // const Divider(
+                                //   color: Colors.black,
+                                //   // indent: 5,
+                                // )
+                              ],
+                            ),
+                          );
+                        });
+                  }),
 
-            Padding(
-              padding: const EdgeInsets.only(top: 80),
-              child: StreamBuilder<List<ChatContactModel>>(
+              StreamBuilder<List<ChatContactModel>>(
                   stream: ref.watch(chatClassControllerProvider).getChatcontacts(),
                   builder: (context, snapshots) {
                     if (snapshots.connectionState == ConnectionState.waiting) {
@@ -114,11 +110,13 @@ class _ChatsState extends ConsumerState<Chats> {
                     }
                     List<ChatContactModel> chatcontacts = snapshots.data!;
                     return ListView.builder(
+                      shrinkWrap: true,
                       itemCount: chatcontacts.length,
                       itemBuilder: (context, index) {
                         ChatContactModel contactlist = chatcontacts[index];
 
                         var timeSent = DateFormat.Hm().format(contactlist.timeSent);
+
                         return ListTile(
                           onTap: () {
                             if (widget.device == 'mobile') {
@@ -128,7 +126,10 @@ class _ChatsState extends ConsumerState<Chats> {
                                   builder: (context) => personalsms(
                                     uid: contactlist.contactId,
                                     uname: contactlist.name,
+                                    members: '',
+                                    groupPic: contactlist.profilePic,
                                     isGroup: true,
+                                    // members_name: '',
                                   ),
                                 ),
                               );
@@ -154,8 +155,8 @@ class _ChatsState extends ConsumerState<Chats> {
                       },
                     );
                   }),
-            ),
-          ],
+            ],
+          ),
         ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.chat),

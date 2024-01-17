@@ -40,8 +40,6 @@ class SelectContactsClass {
   }
 
 
-
-
   void selectContact(Contact selectedcontact, BuildContext context, String displayName) async {
     try {
       var userCollection = await firebaseFirestore.collection("users").get();
@@ -62,6 +60,9 @@ class SelectContactsClass {
                 uid:userData.uid!,
                 uname: displayName,
                 isGroup: true,
+                members: userData.name.toString(),
+                groupPic: '',
+                // members_name: userData.name.toString(),
               ),
             ),
           );

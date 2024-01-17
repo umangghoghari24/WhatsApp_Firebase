@@ -25,10 +25,20 @@ import '../../../main.dart';
 
 class personalsms extends ConsumerStatefulWidget {
    String uid;
-   String uname;
+   final String uname;
    final bool isGroup;
+   final String members;
+   // final String members_name;
+   final groupPic;
 
-  personalsms({required this.uid, required this.uname,required this.isGroup, Key? key,}) : super(key: key);
+
+  personalsms({required this.uid,
+    required this.uname,
+    required this.isGroup,
+    required this.groupPic,
+    required this.members,
+    // required this.members_name,
+    Key? key,}) : super(key: key);
 
   @override
   ConsumerState<personalsms> createState() => _personalsmsState();
@@ -92,36 +102,46 @@ class _personalsmsState extends ConsumerState<personalsms> {
     return Scaffold(
         appBar: AppBar(
           leading: CircleAvatar(
-            // backgroundImage: NetworkImage(widget.friends.??''),
-            // child: Text(widget.friends.profilePic??''),
+            backgroundImage: NetworkImage(widget.groupPic),
             radius: 40,
           ),
           title: Column(
             children:[
-              Text(
-                widget.uname,
-                style: TextStyle(fontSize: 20,),
+              widget.isGroup ?
+                Column(
+                  children: [
+                    Text(widget.uname),
+                    Text(widget.members)
+                  ],
+                ) :
+              Column(
+                children: [
+                  Text(
+                    widget.uname,
+                    style: TextStyle(fontSize: 20,),
+                  ),
+                  StreamBuilder(
+                    stream: ref
+                        .read(authControllerProvider)
+                        .getUserdatafromid(widget.uid),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return CircularProgressIndicator();
+                      }
+                      if (snapshot.data!.isOnline) {
+                        return Text(
+                          "Online",
+                          style: TextStyle(fontSize: 19),
+                        );
+                      }
+                      return Text(
+                        "Ofline",
+                        style: TextStyle(fontSize: 19),
+                      );
+                    },
+                  )
+                ],
               ) ,
-              StreamBuilder(
-                stream: ref
-                    .read(authControllerProvider)
-                    .getUserdatafromid(widget.uid),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
-                  }
-                  if (snapshot.data!.isOnline) {
-                    return Text(
-                      "Online",
-                      style: TextStyle(fontSize: 19),
-                    );
-                  }
-                  return Text(
-                    "Ofline",
-                    style: TextStyle(fontSize: 19),
-                  );
-                },
-              ),
             ],
           ),
           actions: [

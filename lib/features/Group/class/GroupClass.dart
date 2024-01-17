@@ -39,12 +39,13 @@ class GroupClass {
     try {
       //
       List<String> uids = [];
+      List<String> members_name = [];
       for (int i = 0; i < selectedContact.length; i++) {
         var userCollection = await firestore
             .collection('users')
             .where(
           'phoneNumber',
-          isEqualTo: selectedContact[i].phones[0].toString().replaceAll(
+          isEqualTo: selectedContact[i].phones.toString().replaceAll(
             ' ',
             '',
           ),
@@ -53,6 +54,7 @@ class GroupClass {
 
         if (userCollection.docs.isNotEmpty && userCollection.docs[0].exists) {
           uids.add(userCollection.docs[0].data()['uid']);
+          members_name.add(userCollection.docs[0].data()['name']);
         }
       }
 
@@ -71,6 +73,8 @@ class GroupClass {
         groupPic: groupPic,
         timeSent: DateTime.now(),
         members: [auth.currentUser!.uid, ...uids],
+        members_name: [auth.currentUser!.displayName.toString(), ...members_name],
+
       );
       await firestore.collection("groups").doc(groupId).set(
         groupModel.toMap(),
