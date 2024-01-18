@@ -127,7 +127,7 @@ class WebLayout extends StatelessWidget {
                 isGroup: false,
                 members: '',
                 groupPic: '',
-                // members_name: '',
+                members_name: '',
               ),
             ),
           )

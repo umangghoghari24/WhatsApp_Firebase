@@ -42,6 +42,17 @@ class _ChatsState extends ConsumerState<Chats> {
 
                           var timeSent = DateFormat.Hm().format(groupModel.timeSent);
 
+                          String members_name = "";
+                          if(groupModel.members_name.isNotEmpty) {
+                            for (String value in groupModel.members_name)
+                              if (value == "") {
+                                members_name+= "You ,";
+                                print(value);
+                              }
+                            else {
+                              members_name+= "$value ,";
+                              }
+                          }
                           return InkWell(
                             onTap: () {
                               if (widget.device == 'mobile') {
@@ -54,7 +65,8 @@ class _ChatsState extends ConsumerState<Chats> {
                                       groupPic: groupModel.groupPic,
                                       members: groupModel.members.toString(),
                                       isGroup: true,
-                                      // members_name: groupModel.members_name.toString(),
+                                      members_name: members_name,
+
                                     ),
                                   ),
                                 );
@@ -79,23 +91,10 @@ class _ChatsState extends ConsumerState<Chats> {
                                       groupModel.groupPic,
                                     ),
                                   ),
-                                  title: Text(groupModel.name.toString(),
-                                    // style: const TextStyle(fontSize: 18),
-                                  ),
-                                  subtitle: Text(groupModel.lastMessage.toString() ?? '' ,
-                                    // style: const TextStyle(fontSize: 15),
-                                  ),
-                                  trailing: Text(timeSent.toString() ?? '',
-                                    // style: const TextStyle(
-                                    //   fontSize: 15,
-                                    //   color: Colors.grey,
-                                    // ),
-                                  ),
+                                  title: Text(groupModel.name.toString(),),
+                                  subtitle: Text(groupModel.lastMessage.toString() ?? '' ,),
+                                  trailing: Text(timeSent.toString() ?? '',),
                                 ),
-                                // const Divider(
-                                //   color: Colors.black,
-                                //   // indent: 5,
-                                // )
                               ],
                             ),
                           );
@@ -129,7 +128,7 @@ class _ChatsState extends ConsumerState<Chats> {
                                     members: '',
                                     groupPic: contactlist.profilePic,
                                     isGroup: true,
-                                    // members_name: '',
+                                    members_name: '',
                                   ),
                                 ),
                               );

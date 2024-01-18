@@ -28,7 +28,7 @@ class personalsms extends ConsumerStatefulWidget {
    final String uname;
    final bool isGroup;
    final String members;
-   // final String members_name;
+   final String members_name;
    final groupPic;
 
 
@@ -37,7 +37,7 @@ class personalsms extends ConsumerStatefulWidget {
     required this.isGroup,
     required this.groupPic,
     required this.members,
-    // required this.members_name,
+    required this.members_name,
     Key? key,}) : super(key: key);
 
   @override
@@ -111,7 +111,7 @@ class _personalsmsState extends ConsumerState<personalsms> {
                 Column(
                   children: [
                     Text(widget.uname),
-                    Text(widget.members)
+                    Text(widget.members_name)
                   ],
                 ) :
               Column(
@@ -246,7 +246,10 @@ class _personalsmsState extends ConsumerState<personalsms> {
                     // Bottommodal(uid: widget.uid)
                           Align(
                             alignment: Alignment.bottomLeft,
-                            child: Bottommodal(uid: widget.uid,isGroup: true,)
+                            child: Bottommodal(
+                              uid: widget.uid,
+                              isGroup: widget.isGroup,
+                            ),
                           ),
                   ],
                 ),

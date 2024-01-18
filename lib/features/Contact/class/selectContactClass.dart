@@ -62,7 +62,7 @@ class SelectContactsClass {
                 isGroup: true,
                 members: userData.name.toString(),
                 groupPic: '',
-                // members_name: userData.name.toString(),
+                members_name: userData.name.toString(),
               ),
             ),
           );
