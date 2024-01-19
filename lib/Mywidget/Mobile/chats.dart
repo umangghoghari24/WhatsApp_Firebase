@@ -13,9 +13,11 @@ import '../../features/Contact/views/SelectContactScreen.dart';
 
 class Chats extends ConsumerStatefulWidget {
   final String device;
+  final bool isGroup;
+  final String reciveruid;
 
 
-  const Chats({required this.device, super.key});
+  const Chats({required this.device,required this.isGroup,required this.reciveruid, super.key});
 
   @override
   ConsumerState<Chats> createState() => _ChatsState();
@@ -44,6 +46,7 @@ class _ChatsState extends ConsumerState<Chats> {
 
                           String members_name = "";
                           if(groupModel.members_name.isNotEmpty) {
+                            print(members_name);
                             for (String value in groupModel.members_name)
                               if (value == "") {
                                 members_name+= "You ,";

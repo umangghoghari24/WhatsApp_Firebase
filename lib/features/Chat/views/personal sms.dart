@@ -118,8 +118,8 @@ class _personalsmsState extends ConsumerState<personalsms> {
                 children: [
                   Text(
                     widget.uname,
-                    style: TextStyle(fontSize: 20,),
-                  ),
+                    // style: TextStyle(fontSize: 20,),
+      ),
                   StreamBuilder(
                     stream: ref
                         .read(authControllerProvider)
@@ -187,8 +187,59 @@ class _personalsmsState extends ConsumerState<personalsms> {
                     image: DecorationImage(
                         image: AssetImage('assest/images/bgimag.jpg'),
                         fit: BoxFit.fill)),
+
                 child: Stack(
                   children: [
+                    widget.isGroup ?
+                    StreamBuilder<List<MessageModel>>(
+                      stream: ref
+                          .watch(chatClassControllerProvider)
+                          .getGroupMessages(widget.uid),
+                      builder: (context, snapshots) {
+                        if (snapshots.connectionState ==
+                            ConnectionState.waiting) {
+                          return const krmLoader();
+                        }
+                        List<MessageModel> chatmessage = snapshots.data!;
+
+                        SchedulerBinding.instance.addPostFrameCallback((_) {
+                          msgscrollController.jumpTo(
+                            msgscrollController.position.maxScrollExtent,
+                          );
+                        });
+                        return ListView.builder(
+                          controller: msgscrollController,
+                          shrinkWrap: true,
+                          itemCount: chatmessage.length,
+                          itemBuilder: (context, index) {
+                            MessageModel groupModel = chatmessage[index];
+                            var timeSent =
+                            DateFormat.Hm().format(groupModel.time);
+
+                            if (groupModel.type == MessageEnum.gif) {
+                              print(" url = ${groupModel.message}");
+                            }
+                            // return Text(contactlist.message);
+                            if (groupModel.reciverId==
+                                FirebaseAuth.instance.currentUser?.uid) {
+                              return Reciver(
+                                message: groupModel.message,
+                                time: timeSent,
+                                isSeen: true,
+                                type: groupModel.type,
+                              );
+                            }
+                            return Sender(
+                              message: groupModel.message,
+                              time: timeSent,
+                              isSeen: true,
+                              type: groupModel.type,
+                            );
+                          },
+                        );
+
+                      },
+                    ) :
                     StreamBuilder<List<MessageModel>>(
                         stream: ref.watch(chatClassControllerProvider).getMessages(widget.uid),
                         builder: (context, snapshots) {
@@ -235,15 +286,6 @@ class _personalsmsState extends ConsumerState<personalsms> {
                           );
                         }),
 
-                    // Column(
-                          //   children: [
-                          //     Sender(),
-                          //     Reciver(),
-                          //     Sender(),
-                          //
-                          //   ],
-                          // ),
-                    // Bottommodal(uid: widget.uid)
                           Align(
                             alignment: Alignment.bottomLeft,
                             child: Bottommodal(
@@ -369,6 +411,4 @@ class _personalsmsState extends ConsumerState<personalsms> {
   //   }
   //
   //   }
-
-
 }

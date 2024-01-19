@@ -59,6 +59,7 @@ class GroupClass {
       }
 
       print('members_name =$members_name' );
+
       var groupId = const Uuid().v1();
       String groupPic =
       await ref.read(firebaseStorageClassProvider).uploadFiles(
