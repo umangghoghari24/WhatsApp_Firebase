@@ -16,7 +16,6 @@ class Chats extends ConsumerStatefulWidget {
   final bool isGroup;
   final String reciveruid;
 
-
   const Chats({required this.device,required this.isGroup,required this.reciveruid, super.key});
 
   @override
@@ -46,17 +45,15 @@ class _ChatsState extends ConsumerState<Chats> {
 
                           String members_name = "";
                           if(groupModel.members_name.isNotEmpty) {
-                            print(members_name);
                             for (String value in groupModel.members_name)
                               if (value == "") {
-                                members_name+= "You ,";
-                                print(value);
+                                members_name+="You ,";
                               }
                             else {
-                              members_name+= "$value ,";
+                              members_name+="$value ,";
                               }
                           }
-                          return InkWell(
+                          return ListTile(
                             onTap: () {
                               if (widget.device == 'mobile') {
                                 Navigator.push(
@@ -74,32 +71,26 @@ class _ChatsState extends ConsumerState<Chats> {
                                   ),
                                 );
                               } else {
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (context) => WebLayout(
-                                //       friends: groupModel.groupId,
-                                //
-                                //     ),
-                                //   ),
-                                // );
-                              }
-                            },
-                            child: Column(
-                              children: [
-                                ListTile(
-                                  leading: CircleAvatar(
-                                    radius: 30,
-                                    backgroundImage: NetworkImage(
-                                      groupModel.groupPic,
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => WebLayout(
                                     ),
                                   ),
-                                  title: Text(groupModel.name.toString(),),
-                                  subtitle: Text(groupModel.lastMessage.toString() ?? '' ,),
-                                  trailing: Text(timeSent.toString() ?? '',),
+                                );
+                              }
+                            },
+                            // child: ListTile(
+                              leading: CircleAvatar(
+                                radius: 30,
+                                backgroundImage: NetworkImage(
+                                  groupModel.groupPic,
                                 ),
-                              ],
-                            ),
+                              ),
+                              title: Text(groupModel.name.toString(),),
+                              subtitle: Text(groupModel.lastMessage.toString() ?? '' ,),
+                              trailing: Text(timeSent.toString() ?? '',),
+                            // ),
                           );
                         });
                   }),
@@ -130,7 +121,7 @@ class _ChatsState extends ConsumerState<Chats> {
                                     uname: contactlist.name,
                                     members: '',
                                     groupPic: contactlist.profilePic,
-                                    isGroup: true,
+                                    isGroup: widget.isGroup,
                                     members_name: '',
                                   ),
                                 ),

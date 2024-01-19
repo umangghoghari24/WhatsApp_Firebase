@@ -235,7 +235,7 @@ class _BottommodalState extends ConsumerState<Bottommodal> {
                               },
                               icon: Icon(Icons.camera_alt),
                             ),
-                          )
+                          ),
                         ],
                       ),
                       prefixIcon: IconButton(
@@ -252,6 +252,7 @@ class _BottommodalState extends ConsumerState<Bottommodal> {
                   ),
                 ),
               ),
+
               Visibility(
                 visible: isShow,
                 replacement: CircleAvatar(
@@ -287,6 +288,7 @@ class _BottommodalState extends ConsumerState<Bottommodal> {
         ],
       ),
     );
+
   }
 
   Widget MyEmoji() {
@@ -431,6 +433,7 @@ class _BottommodalState extends ConsumerState<Bottommodal> {
                     messageEnum: MessageEnum.image,
                     text: '',
                     type: "text",
+                    isGroup: widget.isGroup,
                   ),),);
     }
   }
@@ -451,6 +454,7 @@ class _BottommodalState extends ConsumerState<Bottommodal> {
                   messageEnum: MessageEnum.video,
                 text: '',
                 type: "text",
+                isGroup: widget.isGroup,
               ),
         ),
       );

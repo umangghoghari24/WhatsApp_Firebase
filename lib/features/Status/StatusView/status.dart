@@ -21,8 +21,9 @@ import 'openStroy.dart';
 
 class status extends ConsumerStatefulWidget {
   final uid;
+  final isGroup;
 
-  status({required this.uid, Key? key}) : super(key: key);
+  status({required this.uid,required this.isGroup, Key? key}) : super(key: key);
 
   @override
   ConsumerState<status> createState() => _statusState();
@@ -246,6 +247,7 @@ class _statusState extends ConsumerState<status> {
             text: '',
             type: 'text',
             isStatus: true,
+            isGroup: widget.isGroup,
           ),
         ),
       );
@@ -268,6 +270,8 @@ class _statusState extends ConsumerState<status> {
               text: '',
               type: 'text',
               isStatus: true,
+              isGroup: widget.isGroup,
+
             ),
           ),
         );

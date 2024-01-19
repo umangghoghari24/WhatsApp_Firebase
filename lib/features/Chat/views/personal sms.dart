@@ -18,7 +18,6 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-
 import '../../../Enum/Enum1.dart';
 import '../../../Mywidget/Web/WebLayout.dart';
 import '../../../main.dart';
@@ -31,8 +30,8 @@ class personalsms extends ConsumerStatefulWidget {
    final String members_name;
    final groupPic;
 
-
-  personalsms({required this.uid,
+  personalsms({
+    required this.uid,
     required this.uname,
     required this.isGroup,
     required this.groupPic,
@@ -217,7 +216,7 @@ class _personalsmsState extends ConsumerState<personalsms> {
                             DateFormat.Hm().format(groupModel.time);
 
                             if (groupModel.type == MessageEnum.gif) {
-                              print(" url = ${groupModel.message}");
+                              // print(" url = ${groupModel.message}");
                             }
                             // return Text(contactlist.message);
                             if (groupModel.reciverId==
@@ -237,7 +236,6 @@ class _personalsmsState extends ConsumerState<personalsms> {
                             );
                           },
                         );
-
                       },
                     ) :
                     StreamBuilder<List<MessageModel>>(
@@ -257,9 +255,9 @@ class _personalsmsState extends ConsumerState<personalsms> {
                           return ListView.builder(
                             controller: msgscrollController,
                             itemCount: chatmessage.length,
-
                             itemBuilder: (context, index) {
                               MessageModel contactlist = chatmessage[index];
+
                               var timeSent = DateFormat.Hm().format(contactlist.time);
 
                               if(contactlist.reciverId==FirebaseAuth.instance.currentUser?.uid){

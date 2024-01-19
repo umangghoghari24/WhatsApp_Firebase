@@ -72,11 +72,13 @@ class ChatClass {
     //   senderchatdata.toMap(),
     // );
     if (isGroup) {
+      print('part 1..');
       await firestore.collection('groups').doc(reciveruid).update({
         'lastMessage': lastMessage,
         'timeSent': DateTime.now().microsecondsSinceEpoch,
       });
     } else {
+      print('part 2..');
       //for sender
       var recieverChatdata = ChatContactModel(
         name: senderUserdata.name!,
@@ -97,7 +99,7 @@ class ChatClass {
       //for reciver
       var senderchatdata = ChatContactModel(
         name: recieverUserData!.name!,
-        profilePic: recieverUserData.photoUrl!,
+        profilePic: recieverUserData!.photoUrl!,
         contactId: recieverUserData.uid!,
         timeSent: timeSent,
         lastMessage: lastMessage,
@@ -375,7 +377,7 @@ class ChatClass {
         message: fileUrl,
         timeSent: timeSent,
         messageId: messageId,
-        username: senderUserdata.name!,
+        username: senderUserdata.name.toString(),
         recieverUsername: recieverUserData?.name,
         type: messageEnum,
           isGroup: isGroup,

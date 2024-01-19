@@ -85,7 +85,7 @@ class WebLayout extends StatelessWidget {
                   thickness: 1,
                   color: Colors.grey,
                 ),
-                Expanded(child: Chats(device: 'web'))
+                Expanded(child: Chats(device: 'web',isGroup: true,reciveruid: '',))
               ],
             ),
           ),

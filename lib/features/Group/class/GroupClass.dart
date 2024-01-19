@@ -39,7 +39,7 @@ class GroupClass {
     try {
       //
       List<String> uids = [];
-      List<String> members_name = [];
+      List<String> namelist = [];
       for (int i = 0; i < selectedContact.length; i++) {
         var userCollection = await firestore
             .collection('users')
@@ -54,11 +54,11 @@ class GroupClass {
 
         if (userCollection.docs.isNotEmpty && userCollection.docs[0].exists) {
           uids.add(userCollection.docs[0].data()['uid']);
-          members_name.add(userCollection.docs[0].data()['name']);
+          namelist.add(userCollection.docs[0].data()['name']);
         }
       }
 
-      print('members_name =$members_name' );
+      print('namelist =$namelist' );
 
       var groupId = const Uuid().v1();
       String groupPic =
@@ -75,13 +75,11 @@ class GroupClass {
         groupPic: groupPic,
         timeSent: DateTime.now(),
         members: [auth.currentUser!.uid, ...uids],
-        members_name: [auth.currentUser!.displayName.toString(), ...members_name],
-
+        members_name: [auth.currentUser!.displayName.toString(),...namelist],
       );
       await firestore.collection("groups").doc(groupId).set(
         groupModel.toMap(),
       );
-      //
     } catch (e) {
       print(e.toString());
       showSnackBar(

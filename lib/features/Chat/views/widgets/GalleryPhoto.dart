@@ -15,6 +15,8 @@ class GalleryPhoto extends ConsumerStatefulWidget {
   final uid;
   final MessageEnum messageEnum;
   final bool isStatus;
+  final isGroup;
+
 
   GalleryPhoto(
       {required this.pickedFile,
@@ -23,6 +25,8 @@ class GalleryPhoto extends ConsumerStatefulWidget {
       this.isStatus = false,
       required type,
       required text,
+      required this.isGroup,
+
       super.key});
 
   @override

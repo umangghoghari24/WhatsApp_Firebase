@@ -87,7 +87,7 @@ class _openstoryState extends State<openstory> {
           },
           onComplete: () {
             print("Completed a cycle");
-            // Navigator.pop(context);
+            Navigator.pop(context);
           },
 
           progressPosition: ProgressPosition.top,
