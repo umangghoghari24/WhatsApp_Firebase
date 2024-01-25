@@ -13,7 +13,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sms_autofill/sms_autofill.dart';
-
 import 'Enum/Enum1.dart';
 import 'commen/cameraview.dart';
 
@@ -54,7 +53,8 @@ class _MyAppState extends ConsumerState<MyApp> {
           } else {
             return loginpage();
           }
-        }, error: (e, stack) {
+        },
+            error: (e, stack) {
           showSnackBar(
             context: context,
             message: e.toString(),

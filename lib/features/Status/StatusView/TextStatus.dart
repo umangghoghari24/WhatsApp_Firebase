@@ -271,105 +271,105 @@ class _TextStatusState extends ConsumerState<Status1> {
                       hintStyle: TextStyle(fontSize: 28)
                   ),
                 ),
-              Stack(
-                children: [
-                  Positioned(
-
-                    child: Container(
-                      height: 55,
-                      color: Colors.white,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          height: 35,
-                          width: 180,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Colors.grey
-                          ),
-                          child: Center(child: Text('Status (50 included)')),
-                        ),
-                        Visibility(
-                            visible: isShow,
-                            replacement: CircleAvatar(
-                              child: IconButton(
-                                onPressed: () {
-                                  ref.read(statusControllerProvider).uploadStatus(
-                                    statusImage: File(''),
-                                    context: context,
-                                    type: "text",
-                                    text: textarea.text,
-                                    statusBGcolor: statusBGcolor,
-
-                                  );
-                                  Navigator.pop(context);
-                                },
-                                icon: Icon(Icons.send),
-                              ),
-                              backgroundColor: Colors.lightGreen,
-                            ),
-                            child: CircleAvatar(
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.mic),
-                                ),
-                                backgroundColor: Colors.lightGreen),
-                        ),
-                      ],
-                    ),
-                    ),
-                  )
-                ],
-              ),
+              // Stack(
+              //   children: [
+              //     Positioned(
+              //
+              //       child: Container(
+              //         height: 55,
+              //         color: Colors.white,
+              //       child: Row(
+              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //         children: [
+              //           Container(
+              //             height: 35,
+              //             width: 180,
+              //             decoration: BoxDecoration(
+              //               borderRadius: BorderRadius.circular(15),
+              //               color: Colors.grey
+              //             ),
+              //             child: Center(child: Text('Status (50 included)')),
+              //           ),
+              //           Visibility(
+              //               visible: isShow,
+              //               replacement: CircleAvatar(
+              //                 child: IconButton(
+              //                   onPressed: () {
+              //                     ref.read(statusControllerProvider).uploadStatus(
+              //                       statusImage: File(''),
+              //                       context: context,
+              //                       type: "text",
+              //                       text: textarea.text,
+              //                       statusBGcolor: statusBGcolor,
+              //
+              //                     );
+              //                     Navigator.pop(context);
+              //                   },
+              //                   icon: Icon(Icons.send),
+              //                 ),
+              //                 backgroundColor: Colors.lightGreen,
+              //               ),
+              //               child: CircleAvatar(
+              //                   child: IconButton(
+              //                     onPressed: () {},
+              //                     icon: Icon(Icons.mic),
+              //                   ),
+              //                   backgroundColor: Colors.lightGreen),
+              //           ),
+              //         ],
+              //       ),
+              //       ),
+              //     )
+              //   ],
+              // ),
               MyEmoji()
             ],
           ),
         ),
 
-        // bottomSheet: Container(
-        //   height: 55,
-        //   color: Colors.white,
-        // child: Row(
-        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //   children: [
-        //     Container(
-        //       height: 35,
-        //       width: 180,
-        //       decoration: BoxDecoration(
-        //         borderRadius: BorderRadius.circular(15),
-        //         color: Colors.grey
-        //       ),
-        //       child: Center(child: Text('Status (50 included)')),
-        //     ),
-        //     Visibility(
-        //         visible: isShow,
-        //         replacement: CircleAvatar(
-        //           child: IconButton(
-        //             onPressed: () {
-        //               ref.read(statusControllerProvider).uploadStatus(
-        //                 statusImage: File(''),
-        //                 context: context,
-        //                 type: "text",
-        //                 text: textarea.text,
-        //                 statusBGcolor: statusBGcolor
-        //               );
-        //               Navigator.pop(context);
-        //             },
-        //             icon: Icon(Icons.send),
-        //           ),
-        //           backgroundColor: Colors.lightGreen,
-        //         ),
-        //         child: CircleAvatar(
-        //             child: IconButton(
-        //               onPressed: () {},
-        //               icon: Icon(Icons.mic),
-        //             ),
-        //             backgroundColor: Colors.lightGreen),
-        //     ),
-        //   ],
-        // ),
-        // ),
+        bottomSheet: Container(
+          height: 55,
+          color: Colors.white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              height: 35,
+              width: 180,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: Colors.grey
+              ),
+              child: Center(child: Text('Status (50 included)')),
+            ),
+            Visibility(
+                visible: isShow,
+                replacement: CircleAvatar(
+                  child: IconButton(
+                    onPressed: () {
+                      ref.read(statusControllerProvider).uploadStatus(
+                        statusImage: File(''),
+                        context: context,
+                        type: "text",
+                        text: textarea.text,
+                        statusBGcolor: statusBGcolor
+                      );
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.send),
+                  ),
+                  backgroundColor: Colors.lightGreen,
+                ),
+                child: CircleAvatar(
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.mic),
+                    ),
+                    backgroundColor: Colors.lightGreen),
+            ),
+          ],
+        ),
+        ),
 
       ),
     );

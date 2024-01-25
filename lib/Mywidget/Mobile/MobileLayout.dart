@@ -1,6 +1,7 @@
 import 'package:firebaseconnection/Model/VideoCall.dart';
 import 'package:firebaseconnection/features/Contact/views/SelectContactScreen.dart';
 import 'package:firebaseconnection/features/Status/StatusView/status.dart';
+import 'package:firebaseconnection/features/VideoCall/Views/CallPikupScreen.dart';
 import 'package:firebaseconnection/features/VideoCall/Views/CallScreen.dart';
 import 'package:firebaseconnection/features/auth/controller/AuthController.dart';
 import 'package:firebaseconnection/features/auth/views/EnterNumber.dart';
@@ -61,7 +62,18 @@ class _MobileLayoutState extends ConsumerState<MobileLayout>
   var pages = <Widget> [
     Chats(device: 'mobile',isGroup: false,reciveruid: '',),
     status(uid: '',isGroup: '',),
-    // CallScreen(channelId: '', isGroupChat: true, videoCall: VideoCall(callerId: '', callerName: '', callerPic: '', receiverId: '', receiverName: '', receiverPic: '', callId: '', hasDialled: true))
+    CallScreen(channelId: '',
+        isGroupChat: true,
+        videoCall: VideoCall(
+            callerId: '',
+            callerName: '',
+            callerPic: '',
+            receiverId: '',
+            receiverName: '',
+            receiverPic: '',
+            callId: '',
+            hasDialled: true
+        ))
   ];
 
   @override
@@ -72,101 +84,103 @@ class _MobileLayoutState extends ConsumerState<MobileLayout>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.green,
-        title: Text('Whatsapp',style: TextStyle(color: Colors.white),),
-        actions: [
-          Row(
-            children: <Widget> [
-              IconButton(onPressed: () {
-                // Navigator.push(context, MaterialPageRoute(builder: (context)=>Cameraapp(uid: widget.uid,)));
-              },
-                icon: Icon(Icons.camera_alt_outlined),
-                color: Colors.white,),
-              SizedBox(width: 10,),
-              IconButton(onPressed: (){
-                // print('Enter friend name');
-                // setState(() {
-                //   showsliverAppBar = !showsliverAppBar;
-                // });
-              },
-                icon: Icon(Icons.search),
-                color: Colors.white,),
-              PopupMenuButton(
-                  icon: Icon(Icons.more_vert),iconColor: Colors.white,
-                  color: Colors.white,
-                  itemBuilder: (context) {
-                    var mypop = DefaultTabController.of(context)!.index;
-                    if (mypop == 1) {
-                      return [
-                          PopupMenuItem(child: Text("New group")),
-                          PopupMenuItem(child: Text("New Broadcast")),
-                          PopupMenuItem(child: Text("Linked devices")),
-                          PopupMenuItem(child: Text("Starred messages")),
-                          PopupMenuItem(child: Text("Payments")),
+    return CallPikupScreen(
+      scaffold: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Colors.green,
+          title: Text('Whatsapp',style: TextStyle(color: Colors.white),),
+          actions: [
+            Row(
+              children: <Widget> [
+                IconButton(onPressed: () {
+                  // Navigator.push(context, MaterialPageRoute(builder: (context)=>Cameraapp(uid: widget.uid,)));
+                },
+                  icon: Icon(Icons.camera_alt_outlined),
+                  color: Colors.white,),
+                SizedBox(width: 10,),
+                IconButton(onPressed: (){
+                  // print('Enter friend name');
+                  // setState(() {
+                  //   showsliverAppBar = !showsliverAppBar;
+                  // });
+                },
+                  icon: Icon(Icons.search),
+                  color: Colors.white,),
+                PopupMenuButton(
+                    icon: Icon(Icons.more_vert),iconColor: Colors.white,
+                    color: Colors.white,
+                    itemBuilder: (context) {
+                      var mypop = DefaultTabController.of(context)!.index;
+                      if (mypop == 1) {
+                        return [
+                            PopupMenuItem(child: Text("New group")),
+                            PopupMenuItem(child: Text("New Broadcast")),
+                            PopupMenuItem(child: Text("Linked devices")),
+                            PopupMenuItem(child: Text("Starred messages")),
+                            PopupMenuItem(child: Text("Payments")),
+                            PopupMenuItem(child: Text("Settings")),
+                        ];
+                      }
+                      else if (mypop == 2) {
+                        return [
+                          PopupMenuItem(child: Text("Status privacy")),
                           PopupMenuItem(child: Text("Settings")),
-                      ];
+                        ];
+                      }
+                      else if (mypop == 3) {
+                        return [
+                          PopupMenuItem(child: Text("Clear call log")),
+                          PopupMenuItem(child: Text("Settings")),
+                        ];
+                      }
+                      return [];
                     }
-                    else if (mypop == 2) {
-                      return [
-                        PopupMenuItem(child: Text("Status privacy")),
-                        PopupMenuItem(child: Text("Settings")),
-                      ];
-                    }
-                    else if (mypop == 3) {
-                      return [
-                        PopupMenuItem(child: Text("Clear call log")),
-                        PopupMenuItem(child: Text("Settings")),
-                      ];
-                    }
-                    return [];
-                  }
+                ),
+              ],
+            ),
+          ],
+          bottom: TabBar(indicatorColor: Colors.white,
+            controller: _tabController,
+            isScrollable: false,
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.white,
+            tabs: [
+              // Icon(Icons.people),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Chats'),
+                  DecoratedBox(
+                      decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: Text('5',style: TextStyle(color: Colors.green),),
+                  )
+                ],
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Tab(text:"Status"),
+                  Icon(Icons.radio_button_unchecked),
+                ],
+              ),
+              Text('calls')
             ],
           ),
-        ],
-        bottom: TabBar(indicatorColor: Colors.white,
-          controller: _tabController,
-          isScrollable: false,
-          labelColor: Colors.white,
-          unselectedLabelColor: Colors.white,
-          tabs: [
-            // Icon(Icons.people),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Chats'),
-                DecoratedBox(
-                    decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: Text('5',style: TextStyle(color: Colors.green),),
-                )
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Tab(text:"Status"),
-                Icon(Icons.radio_button_unchecked),
-              ],
-            ),
-            Text('calls')
-          ],
         ),
+        body: TabBarView(
+          controller: _tabController,
+            children: pages,
+        ),
+        // floatingActionButton: FloatingActionButton(
+        //   child: Icon(Icons.chat),
+        //   onPressed: (){
+        //     Navigator.push(context, MaterialPageRoute(builder: (context)=>SelectContactsScreen(device: 'mobile')));
+        //     },
+        // ),
       ),
-      body: TabBarView(
-        controller: _tabController,
-          children: pages,
-      ),
-      // floatingActionButton: FloatingActionButton(
-      //   child: Icon(Icons.chat),
-      //   onPressed: (){
-      //     Navigator.push(context, MaterialPageRoute(builder: (context)=>SelectContactsScreen(device: 'mobile')));
-      //     },
-      // ),
     );
   }
 }

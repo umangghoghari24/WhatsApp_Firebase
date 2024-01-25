@@ -11,6 +11,7 @@ import 'package:firebaseconnection/features/Chat/views/widgets/Bottommodal.dart'
 import 'package:firebaseconnection/features/Chat/views/widgets/GalleryPhoto.dart';
 import 'package:firebaseconnection/features/Chat/views/widgets/Sender.dart';
 import 'package:firebaseconnection/features/Chat/views/widgets/reciver.dart';
+import 'package:firebaseconnection/features/VideoCall/Controller/VideoCallController.dart';
 import 'package:firebaseconnection/features/auth/controller/AuthController.dart';
 import 'package:flutter/material.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
@@ -27,10 +28,11 @@ class personalsms extends ConsumerStatefulWidget {
    final String uname;
    final bool isGroup;
    final String members;
-   final String members_name;
    final groupPic;
+   final String members_name;
 
-  personalsms({
+
+   personalsms({
     required this.uid,
     required this.uname,
     required this.isGroup,
@@ -54,6 +56,16 @@ class _personalsmsState extends ConsumerState<personalsms> {
   bool isShow = true;
 
   File ? _imageFile;
+
+  void startcall(){
+    ref.read(videocallClasscontrollerProvider).startCall(
+      context,
+      widget.uname,
+      widget.uid,
+      widget.groupPic,
+      widget.isGroup,
+    );
+  }
 
   //
   // void sendTextmessage(BuildContext context) {
@@ -148,7 +160,9 @@ class _personalsmsState extends ConsumerState<personalsms> {
               children: [
                 Row(
                   children: [
-                    IconButton(onPressed: () {}, icon: Icon(Icons.videocam)),
+                    IconButton(onPressed: () {
+                      startcall();
+                    }, icon: Icon(Icons.videocam)),
                     IconButton(onPressed: () {}, icon: Icon(Icons.call)),
                     PopupMenuButton(
 
@@ -185,8 +199,7 @@ class _personalsmsState extends ConsumerState<personalsms> {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage('assest/images/bgimag.jpg'),
-                        fit: BoxFit.fill)),
-
+                        fit: BoxFit.fill),),
                 child: Stack(
                   children: [
                     widget.isGroup ?

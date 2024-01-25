@@ -40,7 +40,9 @@ class GroupClass {
       //
       List<String> uids = [];
       List<String> namelist = [];
+
       for (int i = 0; i < selectedContact.length; i++) {
+        print(selectedContact[i].phones[0]);
         var userCollection = await firestore
             .collection('users')
             .where(
@@ -58,7 +60,7 @@ class GroupClass {
         }
       }
 
-      print('namelist =$namelist' );
+      print('namelist = $namelist' );
 
       var groupId = const Uuid().v1();
       String groupPic =
@@ -75,7 +77,7 @@ class GroupClass {
         groupPic: groupPic,
         timeSent: DateTime.now(),
         members: [auth.currentUser!.uid, ...uids],
-        members_name: [auth.currentUser!.displayName.toString(),...namelist],
+        members_name: [auth.currentUser!.displayName.toString(), ...namelist],
       );
       await firestore.collection("groups").doc(groupId).set(
         groupModel.toMap(),

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:firebaseconnection/commen/Defaultpic.dart';
 import 'package:firebaseconnection/commen/cameraview.dart';
 import 'package:firebaseconnection/features/Status/StatusView/TextStatus.dart';
@@ -9,7 +8,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:story_view/controller/story_controller.dart';
 import 'package:story_view/widgets/story_view.dart';
-
 import '../../../Enum/Enum1.dart';
 import '../../../Enum/StatusEnum.dart';
 import '../../../Model/StatusModel.dart';
@@ -17,7 +15,6 @@ import '../../../commen/krmLoader.dart';
 import '../../Chat/views/widgets/GalleryPhoto.dart';
 import '../statusControllerProvider/StatusController.dart';
 import 'openStroy.dart';
-// import 'package:story_view/story_view.dart';
 
 class status extends ConsumerStatefulWidget {
   final uid;
@@ -168,8 +165,6 @@ class _statusState extends ConsumerState<status> {
                             StatusModel contactlist = snapshots.data![index];
                             var timeSent =
                             DateFormat.Hm().format(contactlist.createdAt);
-
-
                             return ListTile(
                               onTap: () {
                                 Navigator.of(context).push(
@@ -186,7 +181,6 @@ class _statusState extends ConsumerState<status> {
                               },
                               title: Text(status.username),
                               subtitle: Text(timeSent),
-
                               leading: CircleAvatar(
                                 radius: 35,
                                 backgroundImage: NetworkImage(userprofilePic),

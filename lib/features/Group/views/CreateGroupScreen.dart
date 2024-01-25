@@ -44,7 +44,7 @@ class _CreatGroupScreenState extends ConsumerState<CreatGroupScreen> {
               name: element.displayName,
               profilePic: element.photo.toString(),
               isselected: false,
-            phones: element.phones.toString()
+            phones: element.phones[0].number
           ),
         );
       });

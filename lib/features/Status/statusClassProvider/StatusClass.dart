@@ -196,7 +196,7 @@ class StatusClass {
       }
 
       for (int i = 0; i < contacts.length; i++) {
-        print(i);
+        // print(i);
         var statusesSnapshot = await firebaseFirestore
             .collection('status')
             .where(
@@ -215,11 +215,11 @@ class StatusClass {
         )
             .get();
 
-        print("statussnapshot = ${statusesSnapshot.docs}");
+        // print("statussnapshot = ${statusesSnapshot.docs}");
 
         for (var tempData in statusesSnapshot.docs) {
 
-          print("data = ${tempData.data()}");
+          // print("data = ${tempData.data()}");
 
           StatusModel tempStatus = StatusModel.fromMap(tempData.data());
           if (tempStatus.whoCanSee.contains(auth.currentUser!.uid)) {

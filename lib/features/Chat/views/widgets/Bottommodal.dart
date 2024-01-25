@@ -17,37 +17,36 @@ import 'package:giphy_picker/giphy_picker.dart';
 
 import 'Gif.dart';
 
-
 class Bottommodal extends ConsumerStatefulWidget {
   String uid;
+
   // final String reciveruid;
   final bool isGroup;
 
-  Bottommodal({
-    required this.uid,
-    // required this.reciveruid,
-    required this.isGroup,
-    Key? key}) : super(key: key);
+  Bottommodal(
+      {required this.uid,
+      // required this.reciveruid,
+      required this.isGroup,
+      Key? key})
+      : super(key: key);
 
   @override
   ConsumerState<Bottommodal> createState() => _BottommodalState();
 }
 
 class _BottommodalState extends ConsumerState<Bottommodal> {
-
   FocusNode messagefocuce = FocusNode();
   TextEditingController textarea = TextEditingController();
   FocusNode focusNode = FocusNode();
   late bool hideemoji = true;
   bool isShow = true;
 
-  FlutterSoundRecorder ?_flutterSoundRecorder;
+  FlutterSoundRecorder? _flutterSoundRecorder;
   bool isrecordinit = false;
   bool isrecording = false;
   bool isshowsendbtn = false;
 
-
-  File ? _imageFile;
+  File? _imageFile;
 
   void sendTextmessage(BuildContext context) async {
     if (textarea.text != '') {
@@ -56,7 +55,7 @@ class _BottommodalState extends ConsumerState<Bottommodal> {
           message: textarea.text.trim(),
           isGroup: widget.isGroup,
           reciveruid: widget.uid.toString());
-          textarea.text = '';
+      textarea.text = '';
       //   }
       //
       // void sendTextmessage(BuildContext context)async {
@@ -75,8 +74,7 @@ class _BottommodalState extends ConsumerState<Bottommodal> {
       var tmpPath = await getTemporaryDirectory();
       var path = '${tmpPath.path}/watshapclone.aac';
       if (isrecording) {
-        await
-        _flutterSoundRecorder!.stopRecorder();
+        await _flutterSoundRecorder!.stopRecorder();
         sendFilemessage(context, File(path), ref, MessageEnum.audio);
       } else {
         _flutterSoundRecorder!.startRecorder(toFile: path);
@@ -87,33 +85,33 @@ class _BottommodalState extends ConsumerState<Bottommodal> {
     }
   }
 
-  void sendFilemessage(BuildContext context, pickedFile, WidgetRef ref,
-      messageEnum) {
+  void sendFilemessage(
+      BuildContext context, pickedFile, WidgetRef ref, messageEnum) {
     ref.read(chatClassControllerProvider).sendFilemessage(
-      context: context,
-      file: pickedFile,
-      reciveruid: widget.uid,
-      messageEnum: messageEnum,
-      isGroup: widget.isGroup,
-
-    );
+          context: context,
+          file: pickedFile,
+          reciveruid: widget.uid,
+          messageEnum: messageEnum,
+          isGroup: widget.isGroup,
+        );
     if (messageEnum != MessageEnum.audio) {
       Navigator.pop(context);
       Navigator.pop(context);
     }
   }
 
-  void sendGifmessage(BuildContext context,) async {
+  void sendGifmessage(
+    BuildContext context,
+  ) async {
     final gif = await pickGif(context);
 
     if (gif != null) {
       ref.read(chatClassControllerProvider).sendGifmessage(
-        context: context,
-        gifurl: gif.url!,
-        reciveruid: widget.uid,
-        isGroup: widget.isGroup,
-
-      );
+            context: context,
+            gifurl: gif.url!,
+            reciveruid: widget.uid,
+            isGroup: widget.isGroup,
+          );
     }
   }
 
@@ -189,10 +187,7 @@ class _BottommodalState extends ConsumerState<Bottommodal> {
           Row(
             children: [
               Container(
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width / 1.2,
+                width: MediaQuery.of(context).size.width / 1.2,
                 child: Card(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
@@ -228,8 +223,7 @@ class _BottommodalState extends ConsumerState<Bottommodal> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            Cameraapp(
+                                        builder: (context) => Cameraapp(
                                               uid: widget.uid,
                                             )));
                               },
@@ -252,7 +246,6 @@ class _BottommodalState extends ConsumerState<Bottommodal> {
                   ),
                 ),
               ),
-
               Visibility(
                 visible: isShow,
                 replacement: CircleAvatar(
@@ -271,14 +264,16 @@ class _BottommodalState extends ConsumerState<Bottommodal> {
                     onLongPressEnd: (_) {
                       sendTextmessage(context);
                     },
-
                     onTap: () {
                       if (isshowsendbtn) {
                         sendTextmessage(context);
                       }
                     },
-                    child: isshowsendbtn ? Icon(Icons.send) :
-                    isrecording ? Icon(Icons.close) : Icon(Icons.mic),
+                    child: isshowsendbtn
+                        ? Icon(Icons.send)
+                        : isrecording
+                            ? Icon(Icons.close)
+                            : Icon(Icons.mic),
                   ),
                 ),
               ),
@@ -288,7 +283,6 @@ class _BottommodalState extends ConsumerState<Bottommodal> {
         ],
       ),
     );
-
   }
 
   Widget MyEmoji() {
@@ -296,10 +290,7 @@ class _BottommodalState extends ConsumerState<Bottommodal> {
       child: Offstage(
         offstage: hideemoji,
         child: SizedBox(
-          width: MediaQuery
-              .of(context)
-              .size
-              .width - 20,
+          width: MediaQuery.of(context).size.width - 20,
           height: 270,
           child: EmojiPicker(
             textEditingController: textarea,
@@ -335,8 +326,7 @@ class _BottommodalState extends ConsumerState<Bottommodal> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      Cameraapp(
+                                  builder: (context) => Cameraapp(
                                         uid: widget.uid,
                                       )));
                         },
@@ -375,7 +365,8 @@ class _BottommodalState extends ConsumerState<Bottommodal> {
                       IconButton(
                           onPressed: () async {
                             sendGifmessage(context);
-                          }, icon: Icon(Icons.gif)),
+                          },
+                          icon: Icon(Icons.gif)),
                       Colors.green,
                       'Gif'),
                   SizedBox(
@@ -386,8 +377,10 @@ class _BottommodalState extends ConsumerState<Bottommodal> {
                         onPressed: () {
                           getfromgalleryvideo();
                         },
-                        icon: Icon(Icons.videocam),),
-                      Colors.blue, 'Video'),
+                        icon: Icon(Icons.videocam),
+                      ),
+                      Colors.blue,
+                      'Video'),
                 ],
               ),
             ],
@@ -397,9 +390,11 @@ class _BottommodalState extends ConsumerState<Bottommodal> {
     );
   }
 
-  Widget iconcreation(IconButton Icons,
-      Color color,
-      String text,) {
+  Widget iconcreation(
+    IconButton Icons,
+    Color color,
+    String text,
+  ) {
     return Column(
       children: [
         CircleAvatar(
@@ -424,17 +419,18 @@ class _BottommodalState extends ConsumerState<Bottommodal> {
     } else {
       File imageFile = File(pickedFile.path);
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  GalleryPhoto(
-                    pickedFile: imageFile,
-                    uid: widget.uid,
-                    messageEnum: MessageEnum.image,
-                    text: '',
-                    type: "text",
-                    isGroup: widget.isGroup,
-                  ),),);
+        context,
+        MaterialPageRoute(
+          builder: (context) => GalleryPhoto(
+            pickedFile: imageFile,
+            uid: widget.uid,
+            messageEnum: MessageEnum.image,
+            text: '',
+            type: "text",
+            isGroup: widget.isGroup,
+          ),
+        ),
+      );
     }
   }
 
@@ -442,20 +438,20 @@ class _BottommodalState extends ConsumerState<Bottommodal> {
     final pickedFileVideo = await ImagePicker().pickVideo(
       source: ImageSource.gallery,
     );
-    if (pickedFileVideo == null) {} else {
+    if (pickedFileVideo == null) {
+    } else {
       File VideoFile = File(pickedFileVideo.path);
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) =>
-              GalleryPhoto(
-                  pickedFile: VideoFile,
-                  uid: widget.uid,
-                  messageEnum: MessageEnum.video,
-                text: '',
-                type: "text",
-                isGroup: widget.isGroup,
-              ),
+          builder: (context) => GalleryPhoto(
+            pickedFile: VideoFile,
+            uid: widget.uid,
+            messageEnum: MessageEnum.video,
+            text: '',
+            type: "text",
+            isGroup: widget.isGroup,
+          ),
         ),
       );
     }

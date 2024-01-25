@@ -47,7 +47,7 @@ class _ChatsState extends ConsumerState<Chats> {
                           if(groupModel.members_name.isNotEmpty) {
                             for (String value in groupModel.members_name)
                               if (value == "") {
-                                members_name+="You ,";
+                                members_name+= "You ,";
                               }
                             else {
                               members_name+="$value ,";
@@ -87,7 +87,7 @@ class _ChatsState extends ConsumerState<Chats> {
                                   groupModel.groupPic,
                                 ),
                               ),
-                              title: Text(groupModel.name.toString(),),
+                              title: Text(groupModel.name.toString() ?? '',),
                               subtitle: Text(groupModel.lastMessage.toString() ?? '' ,),
                               trailing: Text(timeSent.toString() ?? '',),
                             // ),
@@ -102,55 +102,61 @@ class _ChatsState extends ConsumerState<Chats> {
                       return krmLoader();
                     }
                     List<ChatContactModel> chatcontacts = snapshots.data!;
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: chatcontacts.length,
-                      itemBuilder: (context, index) {
-                        ChatContactModel contactlist = chatcontacts[index];
+                    {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: chatcontacts.length,
+                        itemBuilder: (context, index) {
+                          ChatContactModel contactlist = chatcontacts[index];
 
-                        var timeSent = DateFormat.Hm().format(contactlist.timeSent);
+                          var timeSent = DateFormat.Hm().format(
+                              contactlist.timeSent);
 
-                        return ListTile(
-                          onTap: () {
-                            if (widget.device == 'mobile') {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => personalsms(
-                                    uid: contactlist.contactId,
-                                    uname: contactlist.name,
-                                    members: '',
-                                    groupPic: contactlist.profilePic,
-                                    isGroup: widget.isGroup,
-                                    members_name: '',
-                                  ),
-                                ),
-                              );
-                            } else {
-                              Navigator.push(
+                          return ListTile(
+                            onTap: () {
+                              if (widget.device == 'mobile') {
+                                Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => WebLayout(
-                                            friends: contactlist,
-                                          )));
-                            }
-                          },
-                          leading: CircleAvatar(
-                            radius: 30,
-                            backgroundImage: NetworkImage(
-                              contactlist.profilePic,
+                                    builder: (context) =>
+                                        personalsms(
+                                          uid: contactlist.contactId,
+                                          uname: contactlist.name,
+                                          members: '',
+                                          groupPic: contactlist.profilePic,
+                                          isGroup: widget.isGroup,
+                                          members_name: '',
+                                        ),
+                                  ),
+                                );
+                              } else {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            WebLayout(
+                                              friends: contactlist,
+                                            )));
+                              }
+                            },
+                            leading: CircleAvatar(
+                              radius: 30,
+                              backgroundImage: NetworkImage(
+                                contactlist.profilePic,
+                              ),
                             ),
-                          ),
-                          title: Text(contactlist.name.toString() ?? ''),
-                          subtitle: Text(contactlist.lastMessage ?? ''),
-                          trailing: Text(timeSent.toString() ?? ''),
-                        );
-                      },
-                    );
+                            title: Text(contactlist.name.toString() ?? ''),
+                            subtitle: Text(contactlist.lastMessage ?? ''),
+                            trailing: Text(timeSent.toString() ?? ''),
+                          );
+                        },
+                      );
+                    }
                   }),
             ],
           ),
         ),
+
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.chat),
         onPressed: (){

@@ -59,7 +59,7 @@ class SelectContactsClass {
               builder: (context) => personalsms(
                 uid:userData.uid!,
                 uname: displayName,
-                isGroup: true,
+                isGroup: false,
                 members: userData.name.toString(),
                 groupPic: '',
                 members_name: userData.name.toString(),

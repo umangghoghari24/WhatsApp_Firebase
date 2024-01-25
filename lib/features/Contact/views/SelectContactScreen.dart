@@ -12,6 +12,7 @@ import '../controller/SelectContactController.dart';
 //   final device;
 //   const SelectContactsScreen({required this.device,super.key});
 class SelectContactsScreen extends ConsumerStatefulWidget {
+
   static const String routeName = "select_contact";
   final device;
   const SelectContactsScreen({required this.device ,super.key});
@@ -131,7 +132,7 @@ class _SelectContactsScreenState extends ConsumerState<SelectContactsScreen> {
             ),
             Divider(thickness: 1,),
             SizedBox(
-              height: 500,
+              height: 400,
               child: founduser.isNotEmpty ? ListView.builder(
               itemCount: founduser.length,
               itemBuilder: (context,index) => Container(
@@ -146,7 +147,7 @@ class _SelectContactsScreenState extends ConsumerState<SelectContactsScreen> {
                     backgroundImage: MemoryImage(founduser[index].photo!),
                     backgroundColor: Colors.transparent,
 
-                  ):const CircleAvatar(
+                  ) : const CircleAvatar(
                     radius: 40,
                     backgroundImage: NetworkImage(
                       userprofilePic,
@@ -154,7 +155,7 @@ class _SelectContactsScreenState extends ConsumerState<SelectContactsScreen> {
                   ),
                   title: Text(founduser[index].displayName.toString()),
                 ),
-              ),
+               ),
               )  :  krmLoader(),
             ),
           ],
