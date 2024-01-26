@@ -24,12 +24,27 @@ class SelectContactsClass {
 
   Future<List<Contact>> getContacts() async {
     List<Contact> contacts = [];
+    List<Contact> tmpcontacts = [];
+    List names=[];
     try {
       if (await FlutterContacts.requestPermission()) {
         contacts = await FlutterContacts.getContacts(
           withProperties: true,
           withPhoto: true,
         );
+
+        // int i=0;
+        // tmpcontacts.forEach((element) {
+        //   if(names.contains(element.name)){
+        //   }else{
+        //     if(i<50){
+        //     names.add(element.name);
+        //     contacts.add(element);
+        //     }
+        //     i++;
+        //   }
+        // });
+
       } else {
         FlutterContacts.requestPermission();
       }

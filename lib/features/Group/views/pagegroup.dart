@@ -111,9 +111,9 @@ class _pagegroupState extends ConsumerState<pagegroup> {
                           ).image,
                           radius: 30,
                         ))),
-                SizedBox(
-                  width: 10,
-                ),
+                // SizedBox(
+                //   width: 10,
+                // ),
                 SizedBox(
                   width: 250,
                   child: TextFormField(
@@ -125,7 +125,7 @@ class _pagegroupState extends ConsumerState<pagegroup> {
                   ),
                 ),
                 SizedBox(
-                    width: 50,
+                    width: 8,
                     child: Icon(
                       Icons.emoji_emotions_outlined,
                       color: Colors.black38,
@@ -158,7 +158,7 @@ class _pagegroupState extends ConsumerState<pagegroup> {
                   ),
                 ),
                 SizedBox(
-                  width: 150,
+                  width: 130,
                 ),
                 Icon(Icons.av_timer)
               ],

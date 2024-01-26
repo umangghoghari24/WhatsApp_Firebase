@@ -62,18 +62,7 @@ class _MobileLayoutState extends ConsumerState<MobileLayout>
   var pages = <Widget> [
     Chats(device: 'mobile',isGroup: false,reciveruid: '',),
     status(uid: '',isGroup: '',),
-    CallScreen(channelId: '',
-        isGroupChat: true,
-        videoCall: VideoCall(
-            callerId: '',
-            callerName: '',
-            callerPic: '',
-            receiverId: '',
-            receiverName: '',
-            receiverPic: '',
-            callId: '',
-            hasDialled: true
-        ))
+    videocall()
   ];
 
   @override
@@ -94,7 +83,7 @@ class _MobileLayoutState extends ConsumerState<MobileLayout>
             Row(
               children: <Widget> [
                 IconButton(onPressed: () {
-                  // Navigator.push(context, MaterialPageRoute(builder: (context)=>Cameraapp(uid: widget.uid,)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Cameraapp(uid: '',)));
                 },
                   icon: Icon(Icons.camera_alt_outlined),
                   color: Colors.white,),

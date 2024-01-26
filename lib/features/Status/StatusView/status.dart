@@ -41,17 +41,12 @@ class _statusState extends ConsumerState<status> {
             Row(
               children: [
                 SizedBox(
-                  width: 10,
+                  width: 20,
                 ),
-
                 Text(
                   'Status',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  width: 280,
-                ),
-                // IconButton(onPressed: () {}, icon: Icon(Icons.more_vert))
+                ),SizedBox(width: 230,),
                 PopupMenuButton(
                     icon: Icon(Icons.more_vert),
                     itemBuilder: (context) => [
@@ -153,8 +148,8 @@ class _statusState extends ConsumerState<status> {
                     if (snapshots.connectionState == ConnectionState.waiting) {
                       return const krmLoader();
                     }
-
                     if (snapshots.hasData) {
+
                       print('data found =${snapshots.data}');
 
                       return ListView.builder(

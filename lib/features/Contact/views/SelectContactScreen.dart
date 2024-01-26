@@ -130,9 +130,9 @@ class _SelectContactsScreenState extends ConsumerState<SelectContactsScreen> {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => CreatGroupScreen()));
               },
             ),
-            Divider(thickness: 1,),
+            Divider(thickness: 0.6,),
             SizedBox(
-              height: 400,
+              height: MediaQuery.of(context).size.height/1.4,
               child: founduser.isNotEmpty ? ListView.builder(
               itemCount: founduser.length,
               itemBuilder: (context,index) => Container(

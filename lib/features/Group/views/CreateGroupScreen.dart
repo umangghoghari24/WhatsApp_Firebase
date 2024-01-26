@@ -37,23 +37,46 @@ class _CreatGroupScreenState extends ConsumerState<CreatGroupScreen> {
 
   void getContacts() async {
     ref.read(selectContactsClassProvider).getContacts().then((value) {
-      List<GroupContactModel> tmpcomtacts = [];
+      List<GroupContactModel> tmpcontacts = [];
       value.forEach((element) {
-        tmpcomtacts.add(
-          GroupContactModel(
-              name: element.displayName,
-              profilePic: element.photo.toString(),
-              isselected: false,
-            phones: element.phones[0].number
-          ),
-        );
+        if(element.phones.isNotEmpty){
+          //print("error = ${element.phones[0]}");
+
+          tmpcontacts.add(GroupContactModel(
+            name: element.displayName,
+            profilePic: element.photo.toString(),
+            isselected: false,
+            phones: element.phones[0].number.toString(),
+          ));
+
+        }
       });
       setState(() {
-        groupcontact = tmpcomtacts;
+        groupcontact = tmpcontacts;
         founduser = groupcontact;
       });
     });
   }
+
+  // void getContacts() async {
+  //   ref.read(selectContactsClassProvider).getContacts().then((value) {
+  //     List<GroupContactModel> tmpcomtacts = [];
+  //     value.forEach((element) {
+  //       tmpcomtacts.add(
+  //         GroupContactModel(
+  //             name: element.displayName,
+  //             profilePic: element.photo.toString(),
+  //             isselected: false,
+  //           phones: element.phones[0].number.toString()
+  //         ),
+  //       );
+  //     });
+  //     setState(() {
+  //       groupcontact = tmpcomtacts;
+  //       founduser = groupcontact;
+  //     });
+  //   });
+  // }
 
   @override
   initState() {

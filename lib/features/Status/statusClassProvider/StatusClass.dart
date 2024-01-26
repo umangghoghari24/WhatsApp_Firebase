@@ -178,7 +178,7 @@ class StatusClass {
       }
     } catch (e) {
 
-      print("STatus Error =${e.toString()}");
+      // print("STatus Error =${e.toString()}");
 
       showSnackBar(
         context: context,
