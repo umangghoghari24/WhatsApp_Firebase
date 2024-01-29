@@ -35,19 +35,39 @@ class VideoCallClass {
   Stream<DocumentSnapshot> get callstream =>
       firestore.collection("videocalls").doc(auth.currentUser!.uid).snapshots();
 
+  Future<List<VideoCall>> call(BuildContext,context) async {
+    List<VideoCall> callsData = [];
+
+    var callsSnapshot = await firestore
+        .collection('videocalls').
+    doc(auth.currentUser!.uid).collection('calls')
+        .get();
+
+    for (var tempData in callsSnapshot.docs) {
+      VideoCall tempcalls = VideoCall.fromMap(tempData.data());
+      print("tempcalls = ${tempcalls}");
+      callsData.add(tempcalls);
+    }
+
+    return callsData;
+  }
+
   void startCall(
       BuildContext context,
       VideoCall senderData,
       VideoCall receiverData,
       ) async {
     try {
-      //
-      await firestore.collection('videocalls').doc(senderData.callerId).set(
+      var videocallid = const Uuid().v1();
+      await firestore.collection('videocalls').doc(senderData.callerId).collection('calls').
+      doc(videocallid).set(
         senderData.toMap(),
       );
+
       await firestore.collection('videocalls').doc(senderData.receiverId).set(
         receiverData.toMap(),
       );
+
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -73,8 +93,8 @@ class VideoCallClass {
       BuildContext context,
       ) async {
     try {
-      await firestore.collection('videocalls').doc(callerId).delete();
-      await firestore.collection('videocalls').doc(receiverId).delete();
+      // await firestore.collection('videocalls').doc(callerId).delete();
+      // await firestore.collection('videocalls').doc(receiverId).delete();
     } catch (e) {
       showSnackBar(
         context: context,

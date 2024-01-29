@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'chats.dart';
 import 'status.dart';
-import 'videocall.dart';
+import 'calls.dart';
 
 class MobileLayout extends ConsumerStatefulWidget {
   const MobileLayout({Key? key}) : super(key: key);
@@ -62,7 +62,7 @@ class _MobileLayoutState extends ConsumerState<MobileLayout>
   var pages = <Widget> [
     Chats(device: 'mobile',isGroup: false,reciveruid: '',),
     status(uid: '',isGroup: '',),
-    videocall()
+    VCalls()
   ];
 
   @override

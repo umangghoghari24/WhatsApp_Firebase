@@ -9,6 +9,8 @@ class VideoCall {
   final String receiverPic;
   final String callId;
   final bool hasDialled;
+  final DateTime timeSent;
+
 
   VideoCall({
     required this.callerId,
@@ -19,6 +21,7 @@ class VideoCall {
     required this.receiverPic,
     required this.callId,
     required this.hasDialled,
+    required this.timeSent
   });
 
   Map<String, dynamic> toMap() {
@@ -31,6 +34,7 @@ class VideoCall {
       'receiverPic': receiverPic,
       'callId': callId,
       'hasDialled': hasDialled,
+      'timeSent':timeSent.millisecondsSinceEpoch
     };
   }
 
@@ -44,6 +48,7 @@ class VideoCall {
       receiverPic: map['receiverPic'] ?? '',
       callId: map['callId'] ?? '',
       hasDialled: map['hasDialled'] ?? false,
+        timeSent: DateTime.fromMillisecondsSinceEpoch(map['timeSent'])
     );
   }
 }

@@ -30,6 +30,12 @@ class VideoCallController {
   });
 
   Stream<DocumentSnapshot> get callstream => videoCallClass.callstream;
+  // Future<DocumentSnapshot> get call => videoCallClass.call(BuildContext,context);
+
+  Future<List<VideoCall>> call(BuildContext context) async {
+    return await videoCallClass.call(BuildContext,context);
+  }
+
 
   void startCall(
       BuildContext context,
@@ -50,6 +56,7 @@ class VideoCallController {
         receiverPic: receiverProfilePic,
         callId: callId,
         hasDialled: true,
+          timeSent: DateTime.now()
       );
 
       VideoCall receiverData = VideoCall(
@@ -61,6 +68,7 @@ class VideoCallController {
         receiverPic: receiverProfilePic,
         callId: callId,
         hasDialled: false,
+          timeSent: DateTime.now()
       );
 
       if (isGroupChat) {
