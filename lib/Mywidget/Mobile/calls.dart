@@ -44,7 +44,6 @@ class _videocallState extends ConsumerState<VCalls> {
                           VideoCall videoCall = snapshots.data![Index];
                           var timeSent =
                               DateFormat.Hm().format(videoCall.timeSent);
-
                           return ListTile(
                             leading: CircleAvatar(
                               backgroundImage:
@@ -69,7 +68,9 @@ class _videocallState extends ConsumerState<VCalls> {
                                           icon: Icon(
                                             Icons.call,
                                             color: Colors.green,
-                                          )))
+                                          ),
+                                      ),
+                                  )
                                 ],
                               ),
                             ),
