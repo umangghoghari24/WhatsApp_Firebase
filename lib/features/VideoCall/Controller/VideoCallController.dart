@@ -30,44 +30,43 @@ class VideoCallController {
   });
 
   Stream<DocumentSnapshot> get callstream => videoCallClass.callstream;
+
   // Future<DocumentSnapshot> get call => videoCallClass.call(BuildContext,context);
 
   Future<List<VideoCall>> call(BuildContext context) async {
-    return await videoCallClass.call(BuildContext,context);
+    return await videoCallClass.call(BuildContext, context);
   }
 
 
-  void startCall(
-      BuildContext context,
+  void startCall(BuildContext context,
       String receiverName,
       String receiverUid,
       String receiverProfilePic,
-      bool isGroupChat,
-      ) {
+      bool isGroupChat,) {
     ref.read(userLogindataProvider).whenData((logindata) {
       String callId = const Uuid().v1();
 
       VideoCall senderData = VideoCall(
-        callerId: auth.currentUser!.uid,
-        callerName: logindata!.name.toString(),
-        callerPic: logindata.photoUrl.toString(),
-        receiverId: receiverUid,
-        receiverName: receiverName,
-        receiverPic: receiverProfilePic,
-        callId: callId,
-        hasDialled: true,
+          callerId: auth.currentUser!.uid,
+          callerName: logindata!.name.toString(),
+          callerPic: logindata.photoUrl.toString(),
+          receiverId: receiverUid,
+          receiverName: receiverName,
+          receiverPic: receiverProfilePic,
+          callId: callId,
+          hasDialled: true,
           timeSent: DateTime.now()
       );
 
       VideoCall receiverData = VideoCall(
-        callerId: auth.currentUser!.uid,
-        callerName: logindata.name.toString(),
-        callerPic: logindata.photoUrl.toString(),
-        receiverId: receiverUid,
-        receiverName: receiverName,
-        receiverPic: receiverProfilePic,
-        callId: callId,
-        hasDialled: false,
+          callerId: auth.currentUser!.uid,
+          callerName: logindata.name.toString(),
+          callerPic: logindata.photoUrl.toString(),
+          receiverId: receiverUid,
+          receiverName: receiverName,
+          receiverPic: receiverProfilePic,
+          callId: callId,
+          hasDialled: false,
           timeSent: DateTime.now()
       );
 
@@ -87,15 +86,26 @@ class VideoCallController {
     });
   }
 
-  void endCall(
-      String callerId,
+  void endCall(String callerId,
       String receiverId,
       BuildContext context,
-      ) {
-    videoCallClass.endCall(
-      callerId,
-      receiverId,
-      context,
-    );
+      {bool isGroupChat = false}) {
+
+    if (isGroupChat) {
+      print("Call == Group");
+      videoCallClass.endGroupCall(
+        callerId,
+        receiverId,
+        context,
+      );
+    } else {
+      print("Call == Normal");
+
+      videoCallClass.endCall(
+        callerId,
+        receiverId,
+        context,
+      );
+    }
   }
 }

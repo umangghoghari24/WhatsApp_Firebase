@@ -33,7 +33,7 @@ class VideoCallClass {
   });
 
   Stream<DocumentSnapshot> get callstream =>
-      firestore.collection("videocalls").doc(auth.currentUser!.uid).snapshots();
+      firestore.collection("tmpvideocalls").doc(auth.currentUser!.uid).snapshots();
 
   Future<List<VideoCall>> call(BuildContext,context) async {
     List<VideoCall> callsData = [];
@@ -64,9 +64,20 @@ class VideoCallClass {
         senderData.toMap(),
       );
 
-      await firestore.collection('videocalls').doc(senderData.receiverId).set(
+      await firestore.collection('videocalls').doc(senderData.receiverId).collection('calls').
+      doc(videocallid).
+      set(
+        senderData.toMap(),
+      );
+
+      await firestore.collection('tmpvideocalls').doc(senderData.callerId).set(
         receiverData.toMap(),
       );
+
+      await firestore.collection('tmpvideocalls').doc(senderData.receiverId).set(
+        receiverData.toMap(),
+      );
+
 
       Navigator.push(
         context,
@@ -93,6 +104,8 @@ class VideoCallClass {
       BuildContext context,
       ) async {
     try {
+      await firestore.collection('tmpvideocalls').doc(callerId).delete();
+      await firestore.collection('tmpvideocalls').doc(receiverId).delete();
       // await firestore.collection('videocalls').doc(callerId).delete();
       // await firestore.collection('videocalls').doc(receiverId).delete();
     } catch (e) {
@@ -109,6 +122,8 @@ class VideoCallClass {
       BuildContext context,
       ) async {
     try {
+      var videocallid=const Uuid().v1();
+
       await firestore
           .collection('videocalls')
           .doc(senderCallData.callerId)
@@ -123,6 +138,11 @@ class VideoCallClass {
       for (var id in group.members) {
         await firestore
             .collection('videocalls')
+            .doc(id)
+            .set(receiverCallData.toMap());
+
+        await firestore
+            .collection('tmpvideocalls')
             .doc(id)
             .set(receiverCallData.toMap());
       }
@@ -151,7 +171,7 @@ class VideoCallClass {
       BuildContext context,
       ) async {
     try {
-      await firestore.collection('videocalls').doc(callerId).delete();
+      // await firestore.collection('videocalls').doc(callerId).delete();
       var groupSnapshot =
       await firestore.collection('groups').doc(receiverId).get();
       GroupModel group = GroupModel.fromMap(groupSnapshot.data()!);

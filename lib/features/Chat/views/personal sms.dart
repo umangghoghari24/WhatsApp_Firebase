@@ -121,7 +121,9 @@ class _personalsmsState extends ConsumerState<personalsms> {
           children: [
             widget.isGroup
                 ? Column(
-                    children: [Text(widget.uname), Text(widget.members_name)],
+                    children: [
+                      Text(widget.uname),
+                      Text(widget.members_name)],
                   )
                 : Column(
                     children: [
@@ -155,6 +157,7 @@ class _personalsmsState extends ConsumerState<personalsms> {
           ],
         ),
         actions: [
+
           Row(
             children: [
               Row(

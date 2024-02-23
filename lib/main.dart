@@ -36,16 +36,35 @@ class MyApp extends ConsumerStatefulWidget {
   @override
   ConsumerState<MyApp> createState() => _MyAppState();
 }
-
 class _MyAppState extends ConsumerState<MyApp> {
+
+
+  bool _iconbool = false;
+
+  // Theme icon
+
+  IconData _iconLight = Icons.wb_sunny;
+  IconData _iconDark = Icons.nights_stay;
+
+  // Light and Dark theme color
+
+  ThemeData _LightTheme =
+  ThemeData(primarySwatch: Colors.amber, brightness: Brightness.light);
+
+  ThemeData _DarkTheme = ThemeData(
+    primarySwatch: Colors.red,
+    brightness: Brightness.dark,
+  );
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
+        // title: 'Flutter Demo',
+        theme: _iconbool ? _DarkTheme : _LightTheme,
+        // theme: ThemeData(
+        //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        //   useMaterial3: true,
+        // ),
         debugShowCheckedModeBanner: false,
         home: ref.watch(userLogindataProvider).when(data: (data) {
           if (data != null) {

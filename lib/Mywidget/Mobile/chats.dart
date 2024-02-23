@@ -47,7 +47,7 @@ class _ChatsState extends ConsumerState<Chats> {
                           if(groupModel.members_name.isNotEmpty) {
                             for (String value in groupModel.members_name)
                               if (value == "") {
-                                members_name+= "You ,";
+                                // members_name+= " ,";
                               }
                             else {
                               members_name+="$value ,";
@@ -66,7 +66,6 @@ class _ChatsState extends ConsumerState<Chats> {
                                       members: groupModel.members.toString(),
                                       isGroup: true,
                                       members_name: members_name,
-
                                     ),
                                   ),
                                 );

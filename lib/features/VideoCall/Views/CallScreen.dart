@@ -66,6 +66,7 @@ class _CallScreenState extends ConsumerState<CallScreen> {
                     widget.videoCall.callerId,
                     widget.videoCall.receiverId,
                     context,
+                    isGroupChat:widget.isGroupChat,
                   );
                   Navigator.pop(context);
                 },

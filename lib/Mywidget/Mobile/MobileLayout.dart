@@ -38,10 +38,24 @@ class _MobileLayoutState extends ConsumerState<MobileLayout>
           print("App close");
           ref.read(authControllerProvider).changeUserstate(false);
           break;
-
     }
+  }
+  bool _iconbool = false;
 
-    }
+  // Theme icon
+
+  IconData _iconLight = Icons.wb_sunny;
+  IconData _iconDark = Icons.nights_stay;
+
+  // Light and Dark theme color
+
+  ThemeData _LightTheme =
+  ThemeData(primarySwatch: Colors.amber, brightness: Brightness.light);
+
+  ThemeData _DarkTheme = ThemeData(
+    primarySwatch: Colors.red,
+    brightness: Brightness.dark,
+  );
 
   @override
   void initState() {
@@ -96,6 +110,15 @@ class _MobileLayoutState extends ConsumerState<MobileLayout>
                 },
                   icon: Icon(Icons.search),
                   color: Colors.white,),
+                IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _iconbool = !_iconbool;
+                      });
+                    },
+                    icon: Icon(_iconbool ? _iconDark : _iconLight),
+                    color: Colors.white,
+                ),
                 PopupMenuButton(
                     icon: Icon(Icons.more_vert),iconColor: Colors.white,
                     color: Colors.white,
